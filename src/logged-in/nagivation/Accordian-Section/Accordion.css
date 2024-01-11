@@ -1,0 +1,49 @@
+aside .sidebar Accordion {
+  display: flex;
+  align-items: center;
+  color: var(--color-info-dark);
+  height: 3.7rem;
+  gap: 1rem;
+  position: relative;
+  margin-left: 2rem;
+  transition: all 0.3s ease;
+}
+
+.accordion-section {
+  border: 1px solid #f0f0f0;
+  margin-bottom: 8px;
+}
+
+.accordion-header {
+  background-color: #f0f0f0;
+  padding: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  height: 3.7rem;
+  gap: 1rem;
+  position: relative;
+  margin-left: 2rem;
+  transition: all 0.3s ease;
+}
+
+.accordion-content {
+  background-color: #f0f0f0;
+  padding: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  height: 3.7rem;
+  gap: 1rem;
+  position: relative;
+  margin-left: 2rem;
+  transition: all 0.3s ease;
+}
+
+.accordion-section.open .accordion-content {
+  display: block;
+}
+
+.accordion-section.open .accordion-content:last-child {
+  margin-bottom: 20px; /* Adjust the value as necessary */
+}/*# sourceMappingURL=Accordion.css.map */

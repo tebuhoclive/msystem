@@ -1,0 +1,18 @@
+.pie-chart {
+  height: 100%;
+}
+.pie-chart .title {
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0;
+}
+.pie-chart .wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+.pie-chart .wrapper canvas {
+  height: 100% !important;
+  width: auto !important;
+}/*# sourceMappingURL=PieChart.css.map */

@@ -1,0 +1,11 @@
+.graph-comp {
+  height: calc(100% - 10px);
+}
+.graph-comp .title {
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0;
+}
+.graph-comp .wrapper {
+  height: calc(100% - 20px);
+}/*# sourceMappingURL=BarGraph.css.map */

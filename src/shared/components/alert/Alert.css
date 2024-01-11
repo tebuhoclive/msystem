@@ -1,0 +1,15 @@
+.alert {
+  width: 100%;
+}
+.alert p {
+  margin: 0;
+}
+.alert .close {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 15px;
+  color: inherit;
+  opacity: 0.4;
+  background-color: transparent;
+}/*# sourceMappingURL=Alert.css.map */

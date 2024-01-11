@@ -1,0 +1,65 @@
+.snackbar {
+  display: flex;
+  justify-content: space-between;
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%);
+  visibility: visible;
+  min-width: 200px;
+  text-align: center;
+  border-radius: 4px;
+  z-index: 1000;
+  bottom: 30px;
+  background-color: #4bb543;
+  color: #fff;
+  padding: 0.5em 0.8em;
+  font-size: 0.75rem;
+  font-weight: 400;
+  visibility: visible !important;
+  animation: fadein 0.5s;
+}
+.snackbar.default {
+  background-color: #000;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+}
+.snackbar.primary {
+  background-color: darkgoldenrod;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+}
+.snackbar.success {
+  background-color: #4bb543;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+}
+.snackbar.warning {
+  background-color: #faa05a;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+}
+.snackbar.danger {
+  background-color: #dc3545;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+}
+.snackbar .content {
+  width: clamp(300px, 30vmin, 400px);
+  text-align: left;
+}
+.snackbar .undo-btn {
+  border: 0;
+  background-color: transparent;
+  outline: none;
+  color: #fff;
+  font-weight: 500;
+  margin-left: 10px;
+}
+.snackbar .undo-btn:hover {
+  cursor: pointer;
+}
+.snackbar .close-btn {
+  border: 0;
+  background-color: transparent;
+  outline: none;
+  color: #fff;
+  margin-left: 4px;
+}
+.snackbar .close-btn:hover {
+  cursor: pointer;
+}/*# sourceMappingURL=Snackbar.css.map */

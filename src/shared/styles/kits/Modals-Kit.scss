@@ -1,101 +1,125 @@
 .custom-modal-style {
   border-radius: $border-radius;
+  background-color: var(--background-color);
 
-  .uk-modal-body {
-    background-color: var(--background-color);
-    box-shadow: 02px 10px 11px rgba($success-color, 0.2);
+  .uk-modal-dialog {
+    padding: $padding-lg;
+    height: 100%;
+
+    .dialog-content {
+      height: 55vh !important;
+      overflow-y: auto;
+    }
+
+    .dialog-content-amend {
+      height: 55vh !important;
+      overflow-y: auto;
+    }
+
+    .dialog-content.has-kit-table {
+      height: 49vh !important;
+    }
+
+    .dialog-content-amend.has-kit-table-amend {
+      height: 49vh !important;
+    }
+  }
+}
+
+.deposit-select-bank {
+  margin-bottom: $margin-md-px;
+
+  .select-bank-width {
+    width: 100%;
+  }
+}
+
+.deposit {
+  padding: $padding;
+  overflow-y: auto;
+
+  .first-heading {
+    margin-right: $margin-md-2;
   }
 
-  .uk-modal-title {
-    font-size: $font-size-lg;
-    font-weight: $font-weight-bold;
-    color: var(--color-text);
+  .second-heading {
+    margin-left: $margin-md;
+  }
+}
+
+.modal-split-view-visible-scrollbar {
+  display: block;
+  // width: $drawer-width;
+
+  overflow-y: scroll;
+  height: 96%;
+  padding: $padding-sm-2;
+  margin: $margin-sm-1 auto;
+  // outline: 2px dashed cornflowerblue;
+}
+
+.modal-split-view-visible-scrollbar::-webkit-scrollbar {
+  width: $small-width-2;
+  cursor:pointer;
+  height: 96%;
+  background-color: $muted-grey-color;
+  /* or add it to the track */
+}
+
+.modal-split-view-visible-scrollbar::-webkit-scrollbar-thumb {
+  background: $card-background-color-dark;
+}
+
+.deposit-form {
+  .modal-split-view-visible-scrollbar {
+    display: block;
+    // width: $drawer-width;
+    overflow-y: scroll;
+    height: 96%;
+    padding: $padding-sm-2;
+    margin: $margin-sm-1 auto;
+    // outline: 2px dashed cornflowerblue;
   }
 
-  .sub-heading {
-    margin-bottom: 0.2em;
-    text-transform: uppercase;
+  .modal-split-view-visible-scrollbar::-webkit-scrollbar {
+    width: $small-width-2;
+    height: 96%;
+    background-color: $muted-grey-color;
+    /* or add it to the track */
+  }
+
+  .modal-split-view-visible-scrollbar::-webkit-scrollbar-thumb {
+    background: $card-background-color-dark;
   }
 
   .uk-form-label {
-    font-size: $font-size;
-    color: var(--color-text);
-    font-weight: $font-weight-semibold;
-    margin-top: 10px;
+    font-size: $font-size-md;
+    margin-bottom: $margin-sm-px;
   }
 
-  // .uk-form-small:not(textarea):not([multiple]):not([size]) {
-  //   height: 40px !important;
-  // }
-
-  // .uk-input,
-  // .uk-select:not([multiple]):not([size]) {
-  //   height: 40px;
-  //   border-radius: 4px;
-  // }
-
-  .uk-modal-close-full {
-    top: 0;
-    right: 0;
-    padding: 5px;
-    background: transparent;
+  .deposit-form .uk-select.uk-form-small,
+  .deposit-form .uk-input.uk-form-small {
+    font-size: $font-size-md;
+    padding: $padding-sm-2;
+    height: $small-height-2;
   }
 
-  input::placeholder {
-    color: #bbbbbb;
-    font-size: smaller;
+  .deposit-form .uk-width-1-1.uk-text-right.uk-margin-small-top {
+    margin-top: $margin-sm-px-2;
+    margin-right: $margin-xsm-px-2;
   }
 
-  .footer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 0;
+  .deposit-form .uk-margin-small-bottom-32 {
+    margin-bottom: $margin-md-px;
   }
 
-  .page-main-card {
-    border-radius: $border-radius-lg;
-    background-color: var(--main-card-background-color);
+  .statement-reference-margin {
+    margin-bottom: $margin-md-px;
+  }
 
-    .in-title {
-      color: $primary-color;
-      font-size: $font-size-lg;
-    }
-
-    .page-item {
-      border-radius: $border-radius;
-      margin: 8px 0px;
-      background-color: var(--card-background-color);
-      transition: 0.3s ease-in-out all;
-      padding: 10px;
-
-      .status {
-        padding: 2px 8px;
-        color: var(--color-text);
-        border-radius: $border-radius;
-
-        &.pending {
-          background-color: grey;
-        }
-
-        &.approved {
-          background-color: rgb(150, 150, 229);
-        }
-      }
-
-      .span-label {
-        display: block;
-        font-size: $font-size-xs;
-        color: var(--color-text);
-        text-transform: uppercase;
-        margin: 0;
-        transition: 0.3s ease-in-out all;
-        font-weight: $font-weight-bold;
-      }
-
-      .name {
-        color: var(--color-text);
-      }
-    }
+  .ijg-bank-account-select {
+    font-size: $font-size-md;
+    padding: $padding-sm-2;
+    height: $small-height-2;
   }
 }

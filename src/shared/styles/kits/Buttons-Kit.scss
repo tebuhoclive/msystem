@@ -9,10 +9,30 @@
   transition: all 0.2s ease-in-out;
   border: none;
   margin: 0 2px;
+  height: 35px;
   // min-width: 110px;
 
   &.btn-primary {
     background-color: $primary-btn;
+
+    &:hover {
+      box-shadow: 0 10px 14px rgba($primary-btn, 0.4);
+    }
+  }
+
+  &.btn-outline-primary {
+    background-color: $background-color-light;
+    border: none;
+    color: $primary-btn;
+    &:hover {
+      background-color: $primary-btn;
+      color: $background-color-light;
+      box-shadow: 0 10px 14px rgba(var(--primary-btn), 0.4);
+    }
+  }
+
+  &.btn-primary-in-active {
+    background-color: $grey-color !important;
 
     &:hover {
       box-shadow: 0 10px 14px rgba($primary-btn, 0.4);
@@ -27,8 +47,16 @@
     }
   }
 
+  &.btn-warning {
+    background-color: $hover-color;
+    color: black;
+
+    &:hover {
+      box-shadow: 0 10px 14px rgba($hover-color, 0.4);
+    }
+  }
+
   &:disabled {
-    opacity: 0.5;
     background-color: $grey-color;
     cursor: not-allowed;
 
@@ -38,47 +66,13 @@
   }
 }
 
-// .btn-outlined {
-//   display: inline-block;
-//   padding: 0.5em 1em;
-//   font-size: $font-size;
-//   font-weight: $font-weight-semibold;
-//   color: $black-color;
-//   border-radius: $border-radius;
-//   border: 1px solid $primary-color;
-//   cursor: pointer;
-//   transition: all 0.2s ease-in-out;
-
-//   &:hover {
-//     color: $white-color !important;
-//     background-color: $primary-color;
-//     box-shadow: 0 0 3rem rgba(0, 0, 0, 0.1);
-//   }
-
-//   //primary
-//   &.btn-primary {
-//     color: $primary-color;
-//   }
-
-//   // secondary
-//   &.btn-secondary {
-//     color: $muted-color;
-//   }
-
-//   // disabled
-//   &.btn-disabled {
-//     color: $grey-color;
-//     cursor: not-allowed;
-//   }
-// }
-
 // text-buttons
 .btn-text {
   padding: $btn-padding;
   border-radius: $border-radius;
   font-size: $font-size-sm;
   font-weight: $font-weight-bold;
-  color: $black-color;
+  color: $black-color !important;
   background-color: $hover-color;
   cursor: pointer;
   transition: all 0.3s ease-in-out;
@@ -103,7 +97,7 @@
   }
 }
 
-// icon-buttons 
+// icon-buttons
 .btn-icon {
   padding: $btn-padding-sm;
   border-radius: $border-radius;
@@ -135,7 +129,6 @@
   }
 }
 
-// Back button special
 .kit-btn-back {
   display: flex;
   align-items: center;

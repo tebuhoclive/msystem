@@ -3,7 +3,7 @@ import file from ".././../assets/icons/file_icon.png";
 import telephone from ".././../assets/icons/telephone.svg";
 import mail from ".././../assets/icons/mail.svg";
 import location from ".././../assets/icons/location.svg";
-import IJG from ".././../assets/IJG.png";
+import Logo from ".././../assets/CliveTech.png";
 import user from ".././../assets/icons/user.svg";
 
 const icons = {
@@ -12,7 +12,7 @@ const icons = {
     telephone,
     mail,
     location,
-    IJG,
+    Logo,
     user
 };
 

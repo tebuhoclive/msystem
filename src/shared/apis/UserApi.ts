@@ -1,157 +1,198 @@
 import {
-  query,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  setPersistence,
+  browserLocalPersistence,
+  signOut,
+  deleteUser,
+  onAuthStateChanged,
+  User,
+  sendPasswordResetEmail,
+  reauthenticateWithCredential,
+  EmailAuthProvider,
+  updatePassword,
+} from "firebase/auth";
+import {
   collection,
-  onSnapshot,
-  setDoc,
-  updateDoc,
   deleteDoc,
   doc,
-  where,
-} from "@firebase/firestore";
-import { Unsubscribe, getDocs } from "firebase/firestore";
-import { authWorker, db } from "../config/firebase-config";
-import { IUser } from "../models/User";
+  getDoc,
+  getDocs,
+  orderBy,
+  query,
+  setDoc,
+} from "firebase/firestore";
+
 import AppStore from "../stores/AppStore";
 import AppApi from "./AppApi";
-import { createUserWithEmailAndPassword, sendPasswordResetEmail, signOut } from "firebase/auth";
+import swal from "sweetalert";
+import { auth, db, authWorker } from "../config/firebase-config";
+import { IUser } from "../models/User";
 
 export default class UserApi {
-  path: string | null = null;
-
-  constructor(private api: AppApi, private store: AppStore) { }
-
-  getPath() {
-    return "users";
+  constructor(private api: AppApi, private store: AppStore) {
+    this.onAuthChanged();
   }
 
-  async getAll() {
-    // get the db path
-    const path = this.getPath();
-    if (!path) return;
-
-    // remove all items from store
-    this.store.user.removeAll();
-
-    // create the query
-    const $query = query(collection(db, path));
-    // new promise
-    return await new Promise<Unsubscribe>((resolve, reject) => {
-      // on snapshot
-      const unsubscribe = onSnapshot(
-        $query,
-        // onNext
-        (querySnapshot) => {
-          const items: IUser[] = [];
-          querySnapshot.forEach((doc) => {
-            const user = { uid: doc.id, ...doc.data() } as IUser;
-
-            const DEV_MODE =
-              !process.env.NODE_ENV || process.env.NODE_ENV === "development";
-            if (DEV_MODE) items.push(user);
-            // else if (!user.devUser) items.push(user);
-          });
-
-          this.store.user.load(items);
-          resolve(unsubscribe);
-        },
-        // onError
-        (error) => {
-          reject();
-        }
-      );
+  onAuthChanged() {
+    onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        await this.onSignedIn(user.uid);
+      } else {
+        await this.onSignedOut();
+      }
     });
   }
 
-  async delete(user: IUser) {
-    const path = this.getPath();
-    if (!path) return;
+  private async onSignedIn(uid: string) {
+    this.store.user.loading = true;
+    const userDoc = await getDoc(doc(db, "users", uid));
 
-    const docRef = doc(db, path, user.uid);
-    await deleteDoc(docRef);
-    this.store.user.remove(user.uid)
+    if (!userDoc.exists()) {
+      this.store.user.loading = false;
+      return;
+    }
+    const user = { uid: userDoc.id, ...userDoc.data() } as IUser;
+    this.store.user.loadCurrentUser(user);
+    this.store.user.loading = false;
   }
 
-  // async create(user: IUser) {
+  private async onSignedOut() {
+    this.store.user.loading = true;
+    this.store.user.removeCurrentUser();
+    this.store.user.loading = false;
+  }
 
-  //   const path = this.getPath();
-  //   if (!path) return;
-
-  //   const { email, password = `123456///` } = user;
-  //   const userCredential = await createUserWithEmailAndPassword(authWorker, email, password).catch((error) => {
-  //     return null;
-  //   });
-
-  //   if (userCredential) {
-  //     user.uid = userCredential.user.uid;
-  //     user.password = "";
-  //     await setDoc(doc(db, path, user.uid), user);
-  //     this.store.user.load([user])
-  //     sendPasswordResetEmail(authWorker, email)
-  //     await signOut(authWorker);
-  //   }
-  //   return user;
-  // }
+  // User will be created with authWorker, thus not signed-in
 
   async create(user: IUser) {
-    const path = this.getPath();
-    if (!path) return;
+    const { email } = user;
+    const userCredential = await createUserWithEmailAndPassword(
+      authWorker,
+      email,
+      "@ijg2024"
+    ).catch((error) => {
+      return null;
+    });
 
-    const { email, password = `123456///` } = user;
-
-    try {
-      const userCredential = await createUserWithEmailAndPassword(authWorker, email, password);
-      
-      if (userCredential) {
-        user.uid = userCredential.user.uid;
-        user.password = "";
-        
-        // Log user creation success
-        console.log("User created successfully:", user);
-
-        await setDoc(doc(db, path, user.uid), user);
-        this.store.user.load([user]);
-
-        // Send password reset email
-        await sendPasswordResetEmail(authWorker, email);
-
-        // Sign out the user
-        await signOut(authWorker);
-
-        // Log user creation and sign-out success
-        console.log("User creation and sign-out successful.");
-
-        return user;
-      }
-    } catch (error) {
-      // Log any errors that occur during user creation
-      console.error("Error creating user:", error);
+    if (userCredential) {
+      const newUser = { ...user, uid: userCredential.user.uid }; // Include UID in user object
+      await setDoc(doc(db, "users", newUser.uid), newUser); // Use the UID as the document ID
+      this.store.user.load([newUser]);
+      console.log("Api Created User", newUser);
+      return newUser;
+    } else {
+      // Handle error
       return null;
     }
   }
 
-  async update(item: IUser) {
-    const path = this.getPath();
-    if (!path) return;
+  // Update user info
+  async update(user: IUser) {
+    console.log("user: ", user);
 
     try {
-      await updateDoc(doc(db, path, item.uid), {
-        ...item,
-      });
-      this.store.user.load([item]);
+      await setDoc(doc(db, "users", user.uid), user);
     } catch (error) {
+      console.log("error: ", error);
+      return;
     }
+    this.store.user.load([user]);
+    return user;
   }
 
-  async getByUid(uid: string) {
-    const path = this.getPath();
-    if (!path) return;
+  async signIn(email: string, password: string) {
+    setPersistence(auth, browserLocalPersistence)
+      .then(() => {
+        return signInWithEmailAndPassword(auth, email, password);
+      })
+      .catch((error) => {
+        return null;
+      });
 
-    const unsubscribe = onSnapshot(doc(db, path, uid), (doc) => {
-      if (!doc.exists) return;
-      const item = { uid: doc.id, ...doc.data() } as IUser;
-
-      this.store.user.load([item]);
+    const userCredential = await signInWithEmailAndPassword(
+      auth,
+      email,
+      password
+    ).catch((error) => {
+      return null;
     });
-    return unsubscribe;
+
+    if (userCredential) return userCredential.user;
+    return userCredential;
+  }
+
+  async signOutUser() {
+    signOut(auth);
+  }
+
+  async removeUser(user: User) {
+    await deleteUser(user);
+    await this.deleteUserFromDB(user.uid);
+    return;
+  }
+
+  async passwordResetWithEmail(email: string) {
+    await sendPasswordResetEmail(auth, email)
+      .then(function () {
+        swal("Password reset email sent.");
+      })
+      .catch(function (error) {
+        swal("Could not send email.");
+      });
+  }
+
+  async passwordResetWithOldPassword(
+    email: string,
+    oldPassword: string,
+    newPassword: string
+  ) {
+    const credential = EmailAuthProvider.credential(email, oldPassword);
+    const user = auth.currentUser;
+    if (!user) return;
+    await reauthenticateWithCredential(user, credential)
+      .then(() => {
+        if (newPassword.length >= 6)
+          // User re-authenticated.
+          updatePassword(user, newPassword)
+            .then(function () {
+              // Update successful.
+              swal("Password reset successfully");
+            })
+            .catch(function (error) {
+              // An error happened.
+              swal("Could not reset password");
+            });
+        else swal("Password should be atleast 6 characters long");
+      })
+      .catch((error) => {
+        // An error happened.
+        swal("Incorrect password");
+      });
+  }
+
+  async getById(uid: string) {
+    const docRef = doc(db, "users", uid);
+    const docSnap = await getDoc(docRef);
+    if (docSnap.exists()) {
+      const user = { ...docSnap.data(), uid: docSnap.id } as IUser;
+      this.store.user.load([user]);
+      return user;
+    } else return undefined;
+  }
+
+  async deleteUserFromDB(uid: string) {
+    const docRef = doc(db, "users", uid);
+    await deleteDoc(docRef);
+  }
+
+  async getAll() {
+    this.store.user.removeAll();
+    const $query = query(collection(db, "users"), orderBy("firstName"));
+    const querySnapshot = await getDocs($query);
+    const users = querySnapshot.docs.map((doc) => {
+      return { ...doc.data(), uid: doc.id } as IUser;
+    });
+    this.store.user.load(users);
   }
 }

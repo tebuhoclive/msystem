@@ -2,33 +2,36 @@ import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 import { getStorage } from "firebase/storage";
+import { FIREBASE_PROJECT } from "./ENV";
+import { getDatabase, ref, onValue } from "firebase/database";
 
-// Import the functions you need from the SDKs you need
+const firebaseConfig = FIREBASE_PROJECT.STAGING_ENV;
 
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
-
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = {
-  apiKey: "AIzaSyCioeN4UnUoiSDOU3NPImRkDizpH25cETM",
-  authDomain: "database-4aea2.firebaseapp.com",
-  projectId: "database-4aea2",
-  storageBucket: "database-4aea2.appspot.com",
-  messagingSenderId: "328954475094",
-  appId: "1:328954475094:web:d6dd0d0bfbe7479d6d01f7",
-  measurementId: "G-QVL20FP0LS"
-};
-
-// Initialize Firebase
 const app = initializeApp(firebaseConfig);
-
-
 const appAuthWorker = initializeApp(firebaseConfig);
-export const authWorker = getAuth(appAuthWorker);
 
-// export const analytics = getAnalytics(app);
+export const authWorker = getAuth(appAuthWorker);
 export const db = getFirestore(app);
 export const auth = getAuth(app);
-
 export const storage = getStorage(app);
+
+const database = getDatabase(app);
+
+export { database, ref, onValue };
+
+export const getEnvironment = () => {
+
+  switch (firebaseConfig.authDomain) {
+    case "ijgmms.firebaseapp.com":
+      return { env: "Live", state: "uk-danger" };
+    case "ijgmms-development.firebaseapp.com":
+      return { env: "Demo", state: "uk-danger" };
+    case "ijg-mms-lots-development.firebaseapp.com":
+      return { env: "Development", state: "uk-danger" };
+    case "ijgmms-testing.firebaseapp.com":
+      return { env: "Month End", state: "uk-danger" };
+    default:
+      break;
+  }
+
+};

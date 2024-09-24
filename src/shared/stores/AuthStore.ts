@@ -23,26 +23,26 @@ export default class AuthStore {
   }
 
   // get role
-  // get role() {
-  //   const _role = this.me ? this.me.asJson.role : "Employee";
-  //   return _role as
-  //     | "Employee"
-  //     | "Manager"
-  //     | "General Manager"
-  //     | "Executive"
-  //     | "HR"
-  //     | "Super"
-  //     | "Admin"
-  //     | "MD"
-  //     | "Guest";
-  // }
+  get role() {
+    const _role = this.me ? this.me.asJson.role : "Employee";
+    return _role as
+      | "Employee"
+      | "Manager"
+      | "General Manager"
+      | "Executive"
+      | "HR"
+      | "Super"
+      | "Admin"
+      | "MD"
+      | "Guest";
+  }
 
   // get department
-  // get department() {
-  //   return this.me ? this.me.asJson.department : null;
-  // }
+  get department() {
+    return this.me ? this.me.asJson.department : null;
+  }
   // get uid
-  get meuid() {
+  get meUID() {
     return this.me ? this.me.asJson.uid : null;
   }
 

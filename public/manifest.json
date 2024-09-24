@@ -3,17 +3,17 @@
   "name": "Irwin, Jacobs, Greene (Pty) Ltd",
   "icons": [
     {
-      "src": "IJG.png",
+      "src": "ijg-logo-new.png",
       "sizes": "64x64 32x32 24x24 16x16",
       "type": "image/x-IGJ"
     },
     {
-      "src": "IJG.png",
+      "src": "ijg-logo-new.png",
       "type": "image/png",
       "sizes": "192x192"
     },
     {
-      "src": "IJG.png",
+      "src": "ijg-logo-new.png",
       "type": "image/png",
       "sizes": "512x512"
     }

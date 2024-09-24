@@ -30,7 +30,7 @@ interface Props {
 }
 export const ErrorAlert = (props: Props) => {
   return (
-    <div className="alert uk-margin">
+    <div className="alert uk-margin uk-width-expand">
       <Alert {...props} type="danger" />
     </div>
   );

@@ -18,7 +18,7 @@ export const dateFormat_DD_MM_YY = (dateMillis: number | string | null) => {
   return `${dd}-${mn}-${year}`;
 };
 
-export const dateFormat_YY_MM_DY = (dateMillis: number | string | null) => {
+export const dateFormat_YY_MM_DD = (dateMillis: number | string | null) => {
   if (dateMillis === null) return "-";
 
   const date = new Date(dateMillis);
@@ -75,7 +75,7 @@ export const generateNextValue = (currentValue: string) => {
   const prefix = currentValue.substring(0, 1);
   const number = parseInt(currentValue.substring(1));
   const nextNumber = number + 1;
-  const paddedNextNumber = nextNumber.toString().padStart(6, "0");
+  const paddedNextNumber = nextNumber.toString().padStart(5, "0");
   return prefix + paddedNextNumber;
 };
 
@@ -83,7 +83,7 @@ export const generateNextValueWithIncrement = (currentValue: string, increment: 
   const prefix = currentValue.substring(0, 1);
   const number = parseInt(currentValue.substring(1));
   const nextNumber = number + increment;
-  const paddedNextNumber = nextNumber.toString().padStart(6, "0");
+  const paddedNextNumber = nextNumber.toString().padStart(5, "0");
   return prefix + paddedNextNumber;
 };
 

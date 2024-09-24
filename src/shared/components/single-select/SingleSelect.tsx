@@ -1,144 +1,94 @@
-import Select, { SingleValue } from "react-select";
-import ErrorBoundary from "../error-boundary/ErrorBoundary";
-import "./SingleSelect.scss";
-import React from "react";
+import React from 'react';
+import Select, { SingleValue } from 'react-select';
 
-export interface IOption {
+type Option = {
+  label: string;
   value: string;
-  label: string;
-  color?: string;
-  isDisabled?: boolean;
-}
-
-export interface IGroupedOption {
-  label: string;
-  options: IOption[];
-}
-
-interface IProps {
-  readonly isClearable?: boolean;
-  readonly isLoading?: boolean;
-  readonly isSearchable?: boolean;
-  options: IOption[];
-  groupedOptions?: IGroupedOption[];
-  width?: string;
-  name?: string;
-  placeholder?: string;
-  value?: string;
-  required?: boolean;
-  hideSelectedOptions?: boolean;
-  valueOption?: IOption;
+};
+interface CustomSelectProps {
+  options: Option[];
+  oldOptions?:Option[];
+  value: string | null;
   onChange: (value: string) => void;
+  placeholder?: string;
+  isSearchable?: boolean;
+  isDisabled?: boolean;
+  isLoading?: boolean;
+  isRtl?: boolean;
+  name?: string;
+  isClearable?: boolean;
+  required?: boolean;
 }
-const SingleSelect = (props: IProps) => {
-  const {
-    isClearable = true,
-    isLoading = false,
-    isSearchable = true,
-    required = false,
-    hideSelectedOptions = false,
-    options,
-    groupedOptions,
-    width = "100%",
-    name = "",
-    placeholder = "Search...",
-    value,
-    onChange,
-  } = props;
-
-  const formatGroupLabel = (data: IGroupedOption) => (
-    <div className="grouped-label">
-      <span>{data.label}</span>
-      <span className="grouped-badge">{data.options.length}</span>
-    </div>
-  );
-
-  const getValue = () => {
-    if (!value) return;
-    return options.find((option) => option.value === value);
+const customStyles = {
+  option: (provided: any, state: any) => ({
+    ...provided,
+    fontSize: '12px',
+    backgroundColor: state.isFocused ? '#004C98' : provided.backgroundColor,
+    color: state.isFocused ? '#ffffff' : provided.color,
+  }),
+  control: (provided: any) => ({
+    ...provided,
+    minHeight: '28px',
+  }),
+  singleValue: (provided: any) => ({
+    ...provided,
+    fontSize: '14px',
+  }),
+};
+const customFilter = (option: Option, inputValue: string) => {
+  const optionLabel = option.label.toLowerCase();
+  const inputLower = inputValue.toLowerCase();
+  const inputCharacters = inputLower.split('');
+  return inputCharacters.every(char => optionLabel.includes(char));
+};
+const SingleSelect: React.FC<CustomSelectProps> = ({
+  options,
+  oldOptions,
+  value,
+  onChange,
+  placeholder = 'Select...',
+  isSearchable = true,
+  isDisabled = false,
+  isLoading = false,
+  isRtl = false,
+  isClearable = true,
+  required = false,
+  name
+}) => {
+  const handleChange = (selectedOption: SingleValue<Option>) => {
+    onChange(selectedOption ? selectedOption.value : "");
   };
-
-  const handleChange = (current: SingleValue<IOption>, actionMeta: any) => {
-    if (!current && actionMeta && actionMeta.action === "clear") onChange("");
-    if (current) onChange(current.value); // TODO: remove on if-onChange
+  const getValue = (): Option | null => {
+    if (!value) return null;
+    if(oldOptions){
+      const selectedOption = oldOptions?.find(option =>
+        option.value === value
+      );
+      return selectedOption || null;
+    }else{
+      const selectedOption = options?.find(option =>
+        option.value === value
+      );
+      return selectedOption || null;
+    }
   };
-
-  if (groupedOptions)
-    return (
-      <ErrorBoundary>
-        <div
-          style={{
-            width,
-          }}
-        >
-          <ErrorBoundary>
-            <Select<IOption, false, IGroupedOption>
-              className="single-select uk-input uk-form-small"
-              classNamePrefix="select"
-              isLoading={isLoading}
-              isClearable={isClearable}
-              isSearchable={isSearchable}
-              defaultValue={options[1]}
-              onChange={handleChange}
-              value={getValue()}
-              name={name}
-              options={groupedOptions}
-              formatGroupLabel={formatGroupLabel}
-              placeholder={placeholder}
-            />
-          </ErrorBoundary>
-          <ErrorBoundary>
-            <div id="hidden-input">
-              <input
-                className="uk-input uk-form-small single-select"
-                title="Select option"
-                id={`single-select-${name}`}
-                defaultValue={value}
-                type="text"
-                required={required}
-              />
-            </div>
-          </ErrorBoundary>
-        </div>
-      </ErrorBoundary>
-    );
-
   return (
-    <ErrorBoundary>
-      <div
-        style={{
-          width,
-        }}
-      >
-        <ErrorBoundary>
-          <Select
-          
-            className="single-select"
-            classNamePrefix="select"
-            isLoading={isLoading}
-            isClearable={isClearable}
-            isSearchable={isSearchable}
-            hideSelectedOptions={hideSelectedOptions}
-            onChange={handleChange}
-            value={getValue()}
-            name={name}
-            options={options}
-            placeholder={placeholder}
-          />
-        </ErrorBoundary>
-        <ErrorBoundary>
-          <div id="hidden-input">
-            <input
-              title="Select option"
-              id={`single-select-${name}`}
-              defaultValue={value}
-              type="text"
-              required={required}
-            />
-          </div>
-        </ErrorBoundary>
-      </div>
-    </ErrorBoundary>
+    <Select<Option>
+      className="single-select"
+      classNamePrefix="select"
+      options={options}
+      value={getValue()}
+      onChange={handleChange}
+      placeholder={placeholder}
+      isSearchable={isSearchable}
+      isDisabled={isDisabled}
+      isLoading={isLoading}
+      isRtl={isRtl}
+      name={name ?? ""}
+      isClearable={isClearable}
+      styles={customStyles}
+      filterOption={(option, inputValue) => customFilter(option, inputValue)}
+    />
   );
 };
 

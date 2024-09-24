@@ -7,6 +7,7 @@ interface IProps {
   cssClass?: string;
   children: any;
 }
+
 const Modal = (props: IProps) => {
   const { modalId, cssClass, children } = props;
   const newClass = cssClass ? cssClass : "";
@@ -17,8 +18,8 @@ const Modal = (props: IProps) => {
         id={modalId}
         className={`custom-modal-style ${newClass}`}
         data-uk-modal
-        data-bg-close={false} // Close the modal when the background is clicked.
-      // data-stack // Stack modals, when more than one is open. By default, the previous modal will be hidden.
+        data-bg-close={false}
+        style={{ backgroundColor: "#004c98" }} // Dark blue background
       >
         {children}
       </div>
@@ -40,6 +41,7 @@ export const FullModal = (props: IProps) => {
       className={`uk-modal-full custom-modal-style ${newClass}`}
       data-uk-modal
       data-uk-bg-close
+      style={{ backgroundColor: "rgba(0, 0, 50, )" }} // Dark blue background
     >
       {children}
     </div>

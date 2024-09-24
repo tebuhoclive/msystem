@@ -22,7 +22,7 @@ export const dataFormat = (
     case "Percentage":
       return `${value}%`;
     case "Number":
-      return numberFormat(Number(value));
+      return (Number(value));
     case "Currency":
       const val = currencyFormat(value, dataSymbol);
       return `${val}`;
@@ -56,7 +56,7 @@ export const currencyFormat = (
 };
 
 export const numberFormat = (value: number) => {
-  if (value === 0) return "0";
+  if (value === 0) return "0.00";
   // if is not a number, or undefine, return empty string
   if (!value || isNaN(value)) return "-";
 
@@ -64,6 +64,24 @@ export const numberFormat = (value: number) => {
     style: "decimal",
   }).format(value);
 };
+
+export const numberCurrencyFormat = (value: number) => {
+  if (value === 0) return "0.00";
+  // if is not a number, or undefine, return empty string
+  if (!value || isNaN(value)) return "-";
+
+  return new Intl.NumberFormat("en-US", {
+    style: "decimal",
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  }).format(value);
+};
+
+export const roundOff = (numberToRoundOff: number)=>{
+  let truncatedNumber: number = Math.floor(numberToRoundOff * 100) / 100;
+  return truncatedNumber;
+} 
+
 
 
 const MAX_DESCRIPTION_LENGTH = 110;
@@ -140,28 +158,3 @@ export const trimDescription = (description: string) => {
 //     profit: profit.toFixed(2),
 //   };
 // };
-
-
-
-
-
-export const tbPurchaseConsideration = (tenderRate: number, clientNominal: number, days: number) => {
-  const _considerationBON = clientNominal / (1 + (tenderRate / 100) * (days / 365));
-  return _considerationBON.toFixed(2)
-};
-
-export const tbClientConsideration = (clientRate: number, clientNominal: number, days: number) => {
-  const _considerationClient = clientNominal / (1 + (clientRate / 100) * (days / 365));
-  return _considerationClient.toFixed(2)
-};
-
-export const toTitleCase = (str: string) => {
-  if (str.length <= 3) {
-    return str;
-  }
-
-  return str.replace(
-    /\w\S*/g,
-    (word) => word.charAt(0).toUpperCase() + word.substr(1).toLowerCase()
-  );
-};

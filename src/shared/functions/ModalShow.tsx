@@ -1,3 +1,4 @@
+
 declare const UIkit: any;
 
 export const hideModalFromId = (id: string) => {

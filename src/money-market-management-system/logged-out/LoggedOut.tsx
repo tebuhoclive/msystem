@@ -86,52 +86,56 @@ const LoggedOut = observer(() => {
   return (
     <ErrorBoundary>
       <div className="logged-out">
-        <div className="login-container">
-          <div className="login-logo uk-text-center">
-            {/* Make the logo full width on small screens */}
-            <img src={icons.Logo} alt="" className="logo" />
-          </div>
-          <div className="login-form">
-            {/* Make the form full width on small screens */}
-            <h4 className="main-title-lg uk-text-center">System User Login</h4>
-            <hr />
-            <form className="uk-form uk-form-stacked" onSubmit={onSignIn}>
-              <div className="uk-form-controls uk-width-1-1">
-                <label className="uk-form-label required" htmlFor="user-login-email">Email</label>
-                <input className="uk-input" id="user-login-email" type="email" placeholder="Email" value={signInForm.email}
-                  onChange={(e) => setSignInForm({ ...signInForm, email: e.target.value })} required />
-              </div>
-              <div className="uk-form-controls uk-width-1-1">
-                <label className="uk-form-label required" htmlFor="user-login-password">Password</label>
-                <div className="password-input-container">
-                  <input className={`uk-input ${userNotFoundError ? 'uk-input-invalid' : ''}`} id="user-login-password" type={showPassword ? "text" : "password"} placeholder="Password" value={signInForm.password}
-                    onChange={handlePasswordChange} required onKeyUp={handleKeyUp} />
-                  <button type="button" className="password-toggle" onClick={onTogglePasswordVisibility}>
-                    {showPassword ? "Hide" : "Show"}
-                  </button>
-                </div>
-                {capsLockOn && <small className="uk-text-danger">Caps lock is on!</small>}
-              </div>
-              {userNotFoundError &&
-                <div className="uk-margin-top">
-                  <small className="uk-text-danger">Invalid login details. Contact the System Administrator if the issue persists!</small>
-                </div>
-              }
-              <div className="uk-form-controls uk-width-1-1">
-                <button className="btn btn-primary uk-width-1-1" type="submit">
-                  Login {loading && <div className="uk-margin-small-left" data-uk-spinner="ratio: 0.5" />}
-                </button>
-                <button className="btn btn-warning uk-width-1-1 uk-margin-small-top" type="button" onClick={forgotPassword}>
-                  Reset Password
-                </button>
-              </div>
-            </form>
-          </div>
+  <div className="login-container">
+    <div className="login-logo uk-text-center">
+      {/* Make the logo smaller and rounded */}
+      <img src={icons.Logo} alt="" className="logo rounded-logo" />
+    </div>
+    <div className="login-form">
+      {/* Add the logo inside the title area */}
+      <h4 className="main-title-lg uk-text-center">
+        <img src={icons.Logo} alt="" className="logo rounded-logo" />
+        System User Login
+      </h4>
+      <hr />
+      <form className="uk-form uk-form-stacked" onSubmit={onSignIn}>
+        <div className="uk-form-controls uk-width-1-1">
+          <label className="uk-form-label required" htmlFor="user-login-email">Email</label>
+          <input className="uk-input" id="user-login-email" type="email" placeholder="Email" value={signInForm.email}
+            onChange={(e) => setSignInForm({ ...signInForm, email: e.target.value })} required />
         </div>
-        <Modal modalId={PASSWORD.FORGOT_PASSWORD_DIALOG}>
-          <ForgotPasswordDialog />
-        </Modal>
-      </div>
+        <div className="uk-form-controls uk-width-1-1">
+          <label className="uk-form-label required" htmlFor="user-login-password">Password</label>
+          <div className="password-input-container">
+            <input className={`uk-input ${userNotFoundError ? 'uk-input-invalid' : ''}`} id="user-login-password" type={showPassword ? "text" : "password"} placeholder="Password" value={signInForm.password}
+              onChange={handlePasswordChange} required onKeyUp={handleKeyUp} />
+            <button type="button" className="password-toggle" onClick={onTogglePasswordVisibility}>
+              {showPassword ? "Hide" : "Show"}
+            </button>
+          </div>
+          {capsLockOn && <small className="uk-text-danger">Caps lock is on!</small>}
+        </div>
+        {userNotFoundError &&
+          <div className="uk-margin-top">
+            <small className="uk-text-danger">Invalid login details. Contact the System Administrator if the issue persists!</small>
+          </div>
+        }
+        <div className="uk-form-controls uk-width-1-1">
+          <button className="btn btn-primary uk-width-1-1" type="submit">
+            Login {loading && <div className="uk-margin-small-left" data-uk-spinner="ratio: 0.5" />}
+          </button>
+          <button className="btn btn-warning uk-width-1-1 uk-margin-small-top" type="button" onClick={forgotPassword}>
+            Reset Password
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <Modal modalId={PASSWORD.FORGOT_PASSWORD_DIALOG}>
+    <ForgotPasswordDialog />
+  </Modal>
+</div>
+
     </ErrorBoundary>
   );
   

@@ -19,19 +19,4 @@ const database = getDatabase(app);
 
 export { database, ref, onValue };
 
-export const getEnvironment = () => {
 
-  switch (firebaseConfig.authDomain) {
-    case "ijgmms.firebaseapp.com":
-      return { env: "Live", state: "uk-danger" };
-    case "ijgmms-development.firebaseapp.com":
-      return { env: "Demo", state: "uk-danger" };
-    case "ijg-mms-lots-development.firebaseapp.com":
-      return { env: "Development", state: "uk-danger" };
-    case "ijgmms-testing.firebaseapp.com":
-      return { env: "Month End", state: "uk-danger" };
-    default:
-      break;
-  }
-
-};

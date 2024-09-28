@@ -1,4 +1,5 @@
 import React from "react";
+import "./InventoryTypeTabs.scss";
 
 interface InventoryTypeTabsProps {
   selectedTab: string;
@@ -11,18 +12,35 @@ const InventoryTypeTabs: React.FC<InventoryTypeTabsProps> = ({
 }) => {
   return (
     <div className="type-tabs">
+      {/* Main Tabs */}
       <button
-        className={`tab ${selectedTab === "active-inventory-tab" ? "active" : ""}`}
+        className={`main-tab ${selectedTab === "active-inventory-tab" ? "active" : ""}`}
         onClick={() => setSelectedTab("active-inventory-tab")}
       >
         Food
       </button>
       <button
-        className={`tab ${selectedTab === "active-inventory-tab" ? "active" : ""}`}
-        onClick={() => setSelectedTab("active-inventory-tab")}
+        className={`main-tab ${selectedTab === "drinks-inventory-tab" ? "active" : ""}`}
+        onClick={() => setSelectedTab("drinks-inventory-tab")}
       >
         Drinks
       </button>
+
+      {/* Sub Tabs (Example) */}
+      <div className="sub-tabs">
+        <button
+          className={`sub-tab ${selectedTab === "fruits-tab" ? "active" : ""}`}
+          onClick={() => setSelectedTab("fruits-tab")}
+        >
+          Fruits
+        </button>
+        <button
+          className={`sub-tab ${selectedTab === "vegetables-tab" ? "active" : ""}`}
+          onClick={() => setSelectedTab("vegetables-tab")}
+        >
+          Vegetables
+        </button>
+      </div>
     </div>
   );
 };

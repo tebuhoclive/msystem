@@ -7,7 +7,7 @@ import {
 import { useAppContext } from "../../../shared/functions/Context";
 import { observer } from "mobx-react-lite";
 import useInactivityTimer from "../../../shared/hooks/userInteractionTime";
-import TimeDisplay from "../shared/components/display-time/TimeDisplay";
+
 
 const MainLayout = observer(() => {
   const { pathname } = useLocation();
@@ -43,13 +43,7 @@ const MainLayout = observer(() => {
       try {
         setSystemDataLoading(true);
         await Promise.all([
-          // api.client.naturalPerson.getAll(),
-          // api.client.legalEntity.getAll(),
-          // api.counterParty.getAll(),
-          // api.agent.getAll(),
-          // api.stakeholder.relatedParty.getAll(),
-          // api.mma.getAll(),
-          // api.product.getAll(),
+        
           api.user.getAll(),
         ]);
       } catch (error) {

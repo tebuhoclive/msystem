@@ -1,17 +1,15 @@
 import {
   faBell,
   faBoxes,
-  faCaretDown,
+ 
   faChartLine,
   faClipboardList,
   faCog,
-  faExchange,
+
   faFileAlt,
-  faGear,
-  faLock,
+
   faShoppingCart,
-  faSignOutAlt,
-  faThLarge,
+
   faTruck,
   faUsers,
   faUtensils,
@@ -20,31 +18,26 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { NavLink } from "react-router-dom";
 import ErrorBoundary from "../../../shared/components/error-boundary/ErrorBoundary";
 import { useAppContext } from "../../../shared/functions/Context";
-import { getEnvironment } from "../../../shared/config/firebase-config";
+
 import { hasFeaturePermission } from "../../../shared/functions/users-management/UserFeaturePermissionFunctions";
 import { useState } from "react";
 import { observer } from "mobx-react-lite";
 import { ACTIVE_ENV } from "../CloudEnv";
-import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
-import EventIcon from '@mui/icons-material/Event';
 import TimeDisplay from "../shared/components/display-time/TimeDisplay";
 
 export const AccountLogo = () => {
   return (
     <div className="account-settings uk-margin-remove">
-      <img src={`${process.env.PUBLIC_URL}/CliveTech.png`} alt="" />
-      <span className={`btn btn-primary main-title-md uk-width-1-1 uk-margin-small-bottom
+      <div className="logo-container">
+        <img src={`${process.env.PUBLIC_URL}/CliveTech.png`} alt="Account Logo" className="account-logo" />
+      </div>
+     
       
-         `}>
-        {/* {getEnvironment()?.env} */}
-      </span>
-      <span className={`btn btn-primary main-title-md uk-width-1-1 uk-margin-small-bottom `}>
-        {ACTIVE_ENV.name}
-      </span>
       <hr />
     </div>
   );
 };
+
 
 const USER_DRAWER = observer(() => {
   const { store, api } = useAppContext();
@@ -66,17 +59,17 @@ const USER_DRAWER = observer(() => {
   };
 
 
-  const handleLogOut = async () => {
-    try {
-      setLocking(true);
-      await api.auth.onSignedOut();
+  // const handleLogOut = async () => {
+  //   try {
+  //     setLocking(true);
+  //     await api.auth.onSignedOut();
 
-    } catch (error) {
-    }
-    finally {
-      setLocking(false);
-    }
-  };
+  //   } catch (error) {
+  //   }
+  //   finally {
+  //     setLocking(false);
+  //   }
+  // };
 
   return (
     <div className="drawer-list">

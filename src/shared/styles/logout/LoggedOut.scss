@@ -6,13 +6,24 @@
 
   .login-container {
     height: 90%;
-    padding: 150px 200px;
+    display: flex;
+    flex-direction: column; // Stack elements vertically
+
+    .login-logo {
+      width: 100%; // Full width
+      margin-bottom: 20px; // Space between logo and form
+      img {
+        width: 100%; // Make logo responsive
+        max-width: 350px; // Adjust as needed
+        height: auto; // Maintain aspect ratio
+      }
+    }
 
     .login-form {
       padding: 20px 30px;
       box-shadow: inset 0 0 0 2000px rgba(0, 0, 0, 0.6) !important;
       border-radius: $border-radius;
-      position: relative;
+
       .uk-form-label {
         color: #e7eef3 !important;
       }
@@ -25,38 +36,15 @@
         box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
       }
     }
-
-    .login-logo {
-      background-color: #e7eef3;
-
-      .logo {
-        z-index: 1;
-        position: relative;
-        top: 20% !important;
-        width: 350px !important;
-        line-height: 1;
+    
+    @media (max-width: 768px) {
+      .login-logo img {
+        max-width: 250px; // Adjust width for smaller screens
       }
-    }
 
-    .password-input-container {
-      position: relative;
-    }
-
-    .password-toggle {
-      position: absolute;
-      top: 50%;
-      right: 10px;
-      transform: translateY(-50%);
-      background: none;
-      border: none;
-      cursor: pointer;
-      color: #555;
-      font-size: 0.9em;
-      outline: none;
-    }
-
-    .password-toggle:hover {
-      color: #333;
+      .login-form {
+        padding: 20px 15px; // Adjust padding for smaller screens
+      }
     }
   }
 }

@@ -10,9 +10,6 @@ import { LoadingEllipsis } from "../../shared/components/loading/Loading";
 import { useAppContext } from "../../shared/functions/Context";
 import showModalFromId from "../../shared/functions/ModalShow";
 import icons from "../../shared/utils/icons";
-import KeyIcon from '@mui/icons-material/Key';
-import MODAL_NAMES from "../logged-in/dialogs/ModalName";
-import UserModal from "../logged-in/dialogs/user/UserModal";
 
 const style = {
   display: "flex",
@@ -34,7 +31,6 @@ type ILocationState = {
 };
 
 const LoggedOut = observer(() => {
-
   const { api, store } = useAppContext();
 
   const location = useLocation();
@@ -45,12 +41,11 @@ const LoggedOut = observer(() => {
   const [capsLockOn, setCapsLockOn] = useState(false);
 
   const forgotPassword = () => {
-    showModalFromId(PASSWORD.FORGOT_PASSWORD_DIALOG)
+    showModalFromId(PASSWORD.FORGOT_PASSWORD_DIALOG);
   };
 
-
   const handleKeyUp = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    setCapsLockOn(e.getModifierState('CapsLock'));
+    setCapsLockOn(e.getModifierState("CapsLock"));
   };
   // const onAddNewUser = () => {
   //   store.user.clearSelected();
@@ -73,7 +68,7 @@ const LoggedOut = observer(() => {
     const $user = await api.auth.signIn(email, password);
 
     if (!$user) {
-      setUserNotFoundError(true)
+      setUserNotFoundError(true);
       setLogginLoading(false);
       return;
     }
@@ -91,29 +86,26 @@ const LoggedOut = observer(() => {
   return (
     <ErrorBoundary>
       <div className="logged-out">
-        <div className="login-container uk-grid uk-grid-small" data-uk-grid>
-          <div className="uk-width-2-3 login-logo uk-text-center">
+        <div className="login-container">
+          <div className="login-logo uk-text-center">
+            {/* Make the logo full width on small screens */}
             <img src={icons.Logo} alt="" className="logo" />
           </div>
-          <div className="uk-width-expand login-form">
+          <div className="login-form">
+            {/* Make the form full width on small screens */}
             <h4 className="main-title-lg uk-text-center">System User Login</h4>
             <hr />
-            <form className="uk-form uk-form-stacked uk-grid" data-uk-grid onSubmit={onSignIn}>
+            <form className="uk-form uk-form-stacked" onSubmit={onSignIn}>
               <div className="uk-form-controls uk-width-1-1">
                 <label className="uk-form-label required" htmlFor="user-login-email">Email</label>
                 <input className="uk-input" id="user-login-email" type="email" placeholder="Email" value={signInForm.email}
-                  onChange={(e) => setSignInForm({ ...signInForm, email: e.target.value })}
-                  required
-                />
+                  onChange={(e) => setSignInForm({ ...signInForm, email: e.target.value })} required />
               </div>
               <div className="uk-form-controls uk-width-1-1">
                 <label className="uk-form-label required" htmlFor="user-login-password">Password</label>
                 <div className="password-input-container">
                   <input className={`uk-input ${userNotFoundError ? 'uk-input-invalid' : ''}`} id="user-login-password" type={showPassword ? "text" : "password"} placeholder="Password" value={signInForm.password}
-                    onChange={handlePasswordChange}
-                    required
-                    onKeyUp={handleKeyUp}
-                  />
+                    onChange={handlePasswordChange} required onKeyUp={handleKeyUp} />
                   <button type="button" className="password-toggle" onClick={onTogglePasswordVisibility}>
                     {showPassword ? "Hide" : "Show"}
                   </button>
@@ -132,22 +124,17 @@ const LoggedOut = observer(() => {
                 <button className="btn btn-warning uk-width-1-1 uk-margin-small-top" type="button" onClick={forgotPassword}>
                   Reset Password
                 </button>
-                {/* <button className="btn btn-primary" onClick={onAddNewUser}>
-            Add New User
-          </button> */}
               </div>
             </form>
           </div>
         </div>
-      </div >
-      <Modal modalId={PASSWORD.FORGOT_PASSWORD_DIALOG}>
-        <ForgotPasswordDialog />
-      </Modal>
-      {/* <Modal modalId={MODAL_NAMES.ADMIN.USER_MODAL}>
-          <UserModal />
-        </Modal> */}
-    </ErrorBoundary >
+        <Modal modalId={PASSWORD.FORGOT_PASSWORD_DIALOG}>
+          <ForgotPasswordDialog />
+        </Modal>
+      </div>
+    </ErrorBoundary>
   );
+  
 });
 
 export default LoggedOut;

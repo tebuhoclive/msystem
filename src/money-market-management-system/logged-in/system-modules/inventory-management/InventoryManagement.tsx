@@ -11,7 +11,7 @@ import { NewInventoryGrid } from "./NewInventoryGrid";
 import InventoryModal from "../../dialogs/inventory/InventoryModal";
 import ImportInventoryModal from "../../dialogs/inventory/ImportInventoryModal";
 import Toolbar from "../../shared/components/toolbar/Toolbar";
-
+import "./InventoryManagement.scss";
 const InventoryManagement = observer(() => {
   const { store } = useAppContext();
   const user = store.auth.meJson;
@@ -59,24 +59,26 @@ const InventoryManagement = observer(() => {
             title="Inventory"
             rightControls={
               <>
-                {hasCreatePermission && (
-                  <>
-                    <>
-                      <button
-                        className="btn btn-primary"
-                        onClick={onAddNewInventory}
-                      >
-                        Add New Inventory
-                      </button>
-                      <button
-                        className="btn btn-danger"
-                        onClick={onImportInventory}
-                      >
-                        Import Inventory
-                      </button>
-                    </>
-                  </>
-                )}
+                {/* {hasCreatePermission && ( */}
+                <>
+                <div className="d-flex justify-content-end">
+                  <button
+                    className="btn btn-primary me-2"
+                    style={{ padding: '10px 20px' }}
+                    onClick={onAddNewInventory}
+                  >
+                    Add New Inventory
+                  </button>
+                  <button
+                    className="btn btn-danger"
+                    style={{ padding: '10px 20px' }}
+                    onClick={onImportInventory}
+                  >
+                    Import Inventory
+                  </button>
+                </div>
+              </>
+                {/* )} */}
               </>
             }
           />

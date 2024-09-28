@@ -1,0 +1,54 @@
+.type-tabs {
+    display: flex; /* Use flexbox for layout */
+    align-items: center; /* Center align items vertically */
+    margin: 1rem 0; /* Margin for the entire tabs section */
+  }
+  
+  .main-tab {
+    padding: 0.5rem 1rem; /* Padding for main tabs */
+    background: var(--tab-background-color, #f0f0f0);
+    border: none;
+    border-radius: 50px; /* Pill shape */
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    text-align: center;
+    margin-right: 0.5rem; /* Space between main tabs */
+  
+    &.active {
+      background: var(--tab-active-background-color, #191970);
+      color: #fff;
+      transform: scale(1.05);
+    }
+  
+    &:hover {
+      background: var(--tab-hover-background-color, #e0e0e0);
+    }
+  }
+  
+  .sub-tabs {
+    display: flex; /* Use flexbox for sub-tabs */
+    margin-left: 1rem; /* Space between main and sub tabs */
+  
+    .sub-tab {
+      padding: 0.3rem 0.6rem; /* Adjust padding for sub tabs */
+      background: var(--sub-tab-background-color, #e9ecef);
+      border: none;
+      border-radius: 20px; /* Smaller radius for sub tabs */
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+      margin-right: 0.5rem; /* Space between sub tabs */
+      
+      &.active {
+        background: var(--sub-tab-active-background-color, #007bff);
+        color: #fff;
+        transform: scale(1.05);
+      }
+  
+      &:hover {
+        background: var(--sub-tab-hover-background-color, #d6d8db);
+      }
+    }
+  }
+  

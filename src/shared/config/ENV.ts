@@ -13,13 +13,4 @@ export const FIREBASE_PROJECT = {
 
 
 
-  // MONTH_END_TEST: {
-  //   apiKey: "AIzaSyAyuZyHB9QLCCl_QlgBhq_VHj09JWNj340",
-  //   authDomain: "ijgmms-testing.firebaseapp.com",
-  //   projectId: "ijgmms-testing",
-  //   storageBucket: "ijgmms-testing.appspot.com",
-  //   messagingSenderId: "199202465709",
-  //   appId: "1:199202465709:web:34eff922b6850076082324",
-  //   measurementId: "G-DKQ4FZEFZ5",
-  // },
 };

@@ -1,0 +1,51 @@
+.tabs {
+    position: relative;
+    display: flex;
+    justify-content: flex-start;
+    margin-bottom: 20px;
+    background-color: #191970; // Midnight blue background color for the tab bar
+    padding: 5px; // Reduce padding for the overall tab bar to make it thinner
+    border-radius: 30px; // Rounded corners for the tab bar
+  
+    .tab {
+      padding: 5px 15px; // Reduce padding to make each tab thinner
+      margin: 0 10px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      position: relative;
+      background: transparent;
+      border: 2px solid transparent;
+      border-radius: 25px;
+      color: #fff; // White text color on tabs for contrast against the dark background
+      transition: background-color 0.3s, color 0.3s, border 0.3s;
+  
+      &:hover {
+        background-color: #0a0f2e; // Lighter blue on hover for non-active tabs
+        color: #fff; // Ensure text stays white
+      }
+  
+      &:focus {
+        outline: none;
+      }
+  
+      // Active tab styling with background and border
+      &.active {
+        background-color: #0a0f2e; // Bright blue for the active tab
+        color: #fff; // White text for active tab
+        border-color: #1e90ff; // Match border to active background color
+      }
+    }
+  
+    .glider {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      height: 100%;
+      border-radius: 25px;
+      background-color: #1e90ff; // Glider color matching the active tab
+      transition: all 0.3s ease;
+      z-index: -1;
+    }
+  }
+  

@@ -70,7 +70,7 @@ export default class UserApi {
     const userCredential = await createUserWithEmailAndPassword(
       authWorker,
       email,
-      "@ijg2024"
+      "ms@Mafwila"
     ).catch((error) => {
       return null;
     });

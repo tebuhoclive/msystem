@@ -18,6 +18,13 @@ import InventoryManagement from "./money-market-management-system/logged-in/syst
 import React from "react";
 import { LockPage } from "./money-market-management-system/logged-out/lock/Lock";
 import { OfflinePage } from "./money-market-management-system/logged-out/offline-page/OfflinePage";
+import AdminSettings from "./money-market-management-system/logged-in/system-modules/system-settings-module/AdminSettings";
+import Dashboard from "./money-market-management-system/logged-in/system-modules/dashboard-module/Dashboard";
+import { Notifications } from "@mui/icons-material";
+
+import Reports from "./money-market-management-system/logged-in/system-modules/reports/Reports";
+import SalesManagement from "./money-market-management-system/logged-in/system-modules/sales-management/SalesManagement";
+import Suppliers from "./money-market-management-system/logged-in/system-modules/suppliers/Suppliers";
 
 const PrivateLoggedIn = () => (
   <PrivateRoute>
@@ -27,193 +34,12 @@ const PrivateLoggedIn = () => (
   </PrivateRoute>
 );
 
-const Dashboard = React.lazy(
-  () =>
-    import("./money-market-management-system/logged-in/system-modules/dashboard-module/Dashboard")
-);
 
 
 // Wrap your lazy-loaded components with Suspense
 const LoadingFallback = () => <LoadingEllipsis />;
 
-// const MONEY_MARKET_MANAGEMENT_SYSTEM_ROUTES = () => {
-//   return (
-//     <BrowserRouter>
-//       <ScrollToTop />
-//       <Routes>
-//         <Route path="c" element={<PrivateLoggedIn />}>
-//           <Route path="dashboard" element={
-//             <React.Suspense fallback={<LoadingFallback />}>
-//               <Dashboard />
-//             </React.Suspense>
-//           }
-//           />
 
-//           <Route path="products" element={<Products />} />
-//           <Route path="assets" element={<AssetProducts />} />
-//           <Route path="liabilities" element={<LiabilityProducts />} />
-//           <Route path="pricing" element={<DailyPricing />} />
-//           <Route path="instruments" element={<Instruments />} />
-//           <Route
-//             path="daily-transaction-report"
-//             element={<DailyTransactionReport />}
-//           />
-
-//           <Route path="daily-balance-report-assets" element={<DailyBalanceReportAssets />} />
-//           <Route path="daily-balance-report-liabilities" element={<DailyBalanceReportLiabilities />} />
-//           <Route path="daily-split-deposits" element={<SplitTransactionReport />} />
-
-//           <Route
-//             path="recurring-overdraft-report"
-//             element={<RecurringWithdrawalOverDraftReport />}
-//           />
-//           <Route
-//             path="recurring-instruction-report"
-//             element={<RecurringWithdrawalInstructionReport />}
-//           />
-//           <Route
-//             path="closeout-distribution-report"
-//             element={<CloseOutDistributionReport />}
-//           />
-
-//           <Route
-//             path="client-bank-account-report"
-//             element={<ClientBankAccountReport />}
-//           />
-
-//           <Route
-//             path="client-money-market-account-report"
-//             element={<ClientMoneyMarketAccountReport />}
-//           />
-
-//           <Route
-//             path="transactions-overview"
-//             element={<TransactionsOverview />}
-//           />
-//           <Route
-//             path="client-deposit-allocation"
-//             element={<BankStatementUpload />}
-//           />
-//           {/* <Route
-//             path="client-withdrawal-recurring-payment"
-//             element={
-//               <RecurringWithdrawal client={undefined} withdrawal={undefined} />
-//             }
-//           /> */}
-
-//           {/* <Route
-//             path="client-withdrawal-payment"
-//             element={<WithdrawalTransaction />}
-//           /> */}
-
-//           <Route
-//             path="withdrawal-switches"
-//             element={<Transactions />}
-//           />
-
-//           <Route path="switch" element={<SwitchBetweenAccounts />} />
-//           <Route path="month-end" element={<MonthEndOverview />} />
-
-//           {/* <Route path="purchases" element={<Purchases />} /> */}
-//           <Route path="purchases" element={<InstrumentPurchaseCategory />} />
-//           <Route
-//             path="purchase/instrument/Treasury Bill"
-//             element={<TreasuryBillPurchasePage />}
-//           />
-
-//           <Route
-//             path="purchase/instrument/Equity"
-//             element={<EquityPurchasePage />}
-//           />
-//           <Route
-//             path="purchase/instrument/Bonds"
-//             element={<BondPurchasePage />}
-//           />
-
-//           <Route
-//             path="purchase/instrument/Fixed Deposit"
-//             element={<FixedDepositPurchasePage />}
-//           />
-//           <Route
-//             path="purchase/instrument/Unit Trust"
-//             element={<UnitTrustPurchasePage />}
-//           />
-//           <Route
-//             path="purchase/instrument/Call Deposit"
-//             element={<CallDepositPurchasePage />}
-//           />
-
-//           <Route
-//             path="purchases/allocation-treasury-bill/:purchaseId"
-//             element={<TreasuryBillPurchase />}
-//           />
-
-//           <Route
-//             path="purchases/allocation-fixed-deposit/:purchaseId"
-//             element={<TreasuryBillPurchase />}
-//           />
-//           <Route
-//             path="purchases/allocation-bonds/:purchaseId"
-//             element={<BondPurchase />}
-//           />
-
-//           <Route
-//             path="purchases/submitted/:purchaseId"
-//             element={<TreasuryBillPurchaseSubmitted />}
-//           />
-//           <Route path="asset-manager-flows" element={<AssetManagerFlows />} />
-
-//           <Route path="counterparty" element={<CounterPartyList />} />
-
-//           <Route path="agents" element={<AgentList />} />
-
-//           <Route path="close-outs" element={<CloseOutDistribution />} />
-
-//           <Route path="client-intelligence" element={<ClientOverview />} />
-
-//           <Route path="clients" element={<Clients />} />
-//           <Route path="profile" element={<Profile />} />
-//           <Route path="client-approvals" element={<EntityApprovals />} />
-
-//           <Route
-//             path="client-statements"
-//             element={<ClientAccountStatements />}
-//           />
-//           <Route
-//             path="clients/natural-person/:entityId"
-//             element={<NaturalPersonView />}
-//           />
-//           <Route
-//             path="clients/legal-entity/:entityId"
-//             element={<LegalEntityView />}
-//           />
-
-//           {/* <Route path="accounts" element={<MoneyMarketAccounts />} /> */}
-//           <Route
-//             path="accounts"
-//             element={
-//               <React.Suspense fallback={<LoadingFallback />}>
-//                 <MoneyMarketAccounts />
-//               </React.Suspense>
-//             }
-//           />
-//           <Route
-//             path="accounts/:accountId"
-//             element={<ViewClientMoneyMarketAccount />}
-//           />
-//           <Route path="settings" element={<AdminSettings />} />
-//           <Route path="*" element={<Navigate to="/c" />} />
-//         </Route>
-//         <Route path="/" element={<LoggedOut />} />
-//         <Route path="/lock" element={<LockPage />} />
-//         <Route path="/command" element={<SystemCommandCenter />} />
-//         {/* <Route path="/testPDF" element={<StatementPDFComponent />} /> */}
-//         <Route path="/back-dating" element={<TestBackDating />} />
-//         <Route path="/*" element={<Navigate to="/" />} />
-//       </Routes>
-//     </BrowserRouter>
-//   );
-// };
 
 const MANAGEMENT_SYSTEM_ROUTES = () => {
   return (
@@ -223,21 +49,22 @@ const MANAGEMENT_SYSTEM_ROUTES = () => {
         <Route path="c" element={<PrivateLoggedIn />}>
           {/* Existing routes */}
           <Route path="dashboard" element={
-            <React.Suspense fallback={<LoadingFallback />}>
-              <Dashboard />
-            </React.Suspense>
+           
+              <Dashboard/>
+          
           } />
 
           {/* New e-commerce stock management routes */}
           <Route path="inventory" element={<InventoryManagement />} />
-          {/* <Route path="orders" element={<Orders />} />
+          <Route path="settings" element={<AdminSettings />} />
+          {/* <Route path="orders" element={<Orders />} /> */}
           <Route path="suppliers" element={<Suppliers />} />
           <Route path="sales" element={<SalesManagement />} />
-          <Route path="menu" element={<MenuManagement />} />
-          <Route path="purchase-orders" element={<PurchaseOrders />} />
+          {/* <Route path="menu" element={<MenuManagement />} />
+          <Route path="purchase-orders" element={<PurchaseOrders />} /> */}
           <Route path="reports" element={<Reports />} />
-          <Route path="settings" element={<Settings />} />
-          <Route path="notifications" element={<Notifications />} /> */}
+       
+          <Route path="notifications" element={<Notifications />} />
 
           {/* Other existing routes */}
        
@@ -245,8 +72,8 @@ const MANAGEMENT_SYSTEM_ROUTES = () => {
             <React.Suspense fallback={<LoadingFallback />}>
               <MoneyMarketAccounts />
             </React.Suspense>
-          } /> */}
-        
+          } />
+         */}
           <Route path="*" element={<Navigate to="/c" />} />
         </Route>
         <Route path="/" element={<LoggedOut />} />
